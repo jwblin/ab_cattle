@@ -58,6 +58,7 @@ from ab_cattle import model
 import test_cattle
 import test_model
 import test_pkg_init
+import test_visualize
 
 
 
@@ -96,6 +97,7 @@ class SetUpTestTests( SetUpTest, Tests ):  pass
 class CattleTests( SetUpTest, test_cattle.Tests ):  pass
 class ModelTests( SetUpTest, test_model.Tests ):  pass
 class PkgInitTests( SetUpTest, test_pkg_init.Tests ):  pass
+class VisualizeTests( SetUpTest, test_visualize.Tests ):  pass
 
 
 
@@ -113,6 +115,7 @@ if __name__ == "__main__":
     suite.addTest(unittest.makeSuite(CattleTests))
     suite.addTest(unittest.makeSuite(ModelTests))
     suite.addTest(unittest.makeSuite(PkgInitTests))
+    suite.addTest(unittest.makeSuite(VisualizeTests))
     if run_verbose:
         unittest.TextTestRunner(verbosity=2).run(suite)
     else:
