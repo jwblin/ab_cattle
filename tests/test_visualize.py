@@ -68,22 +68,22 @@ from ab_cattle import visualize
 #------------------------------------ Tests -----------------------------------
 
 class Tests(object):
-    def test_make_plot_of_farm(self):
+    def test_show_plot_of_farm(self):
         aFarm = farm.Farm()
         list_of_cattle = []
 
-        for i in range(10):
+        for i in range(50):
             xloc = N.random.randint(aFarm.width)
             yloc = N.random.randint(aFarm.length)
             temp_cattle = cattle.Cattle( x_init=xloc, 
                                          y_init=yloc,
                                          env=aFarm )
             temp_cattle.state = "Recovered"
+            temp_cattle.state = "Infected"
+            temp_cattle.state = "Susceptible"
             list_of_cattle.append(temp_cattle)
 
         visualize.plot_farm(aFarm, list_of_cattle, show=True)
-        #plt.plot([1,2,3,4], [3,4,5,2])
-        #plt.show()
 
 
 
