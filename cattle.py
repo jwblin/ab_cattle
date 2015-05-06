@@ -15,7 +15,7 @@ class Cattle(object):
         The environment object where the cattle is on.
 
     loc_in_environ : tuple
-        The x and y locations in the environment.  The values are ints
+        The y and x locations in the environment.  The values are ints
         and are given in the coordinates of the given environment type.
 
     state : string
@@ -23,7 +23,7 @@ class Cattle(object):
     """
     def __init__(self, x_init=0, y_init=0, env=None):
         self.environ = env
-        self.loc_in_environ = (x_init, y_init)
+        self.loc_in_environ = (y_init, x_init)
         self.state = "Susceptible"
 
 
