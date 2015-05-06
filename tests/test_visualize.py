@@ -56,6 +56,11 @@ if (__name__ == '__main__') and (__package__ is None):
 #- Import other modules at module level:
 
 import copy
+import matplotlib.pyplot as plt
+import numpy as N
+from ab_cattle import cattle
+from ab_cattle import farm
+from ab_cattle import visualize
 
 
 
@@ -63,7 +68,22 @@ import copy
 #------------------------------------ Tests -----------------------------------
 
 class Tests(object):
-    pass
+    def test_make_plot_of_farm(self):
+        aFarm = farm.Farm()
+        list_of_cattle = []
+
+        for i in range(10):
+            xloc = N.random.randint(aFarm.width)
+            yloc = N.random.randint(aFarm.length)
+            temp_cattle = cattle.Cattle( x_init=xloc, 
+                                         y_init=yloc,
+                                         env=aFarm )
+            temp_cattle.state = "Recovered"
+            list_of_cattle.append(temp_cattle)
+
+        visualize.plot_farm(aFarm, list_of_cattle, show=True)
+        #plt.plot([1,2,3,4], [3,4,5,2])
+        #plt.show()
 
 
 

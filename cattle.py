@@ -23,8 +23,19 @@ class Cattle(object):
     """
     def __init__(self, x_init=0, y_init=0, env=None):
         self.environ = env
-        self.loc_in_environ = (x_init, y_init)
+        self.loc_in_environ = (y_init, x_init)
         self.state = "Susceptible"
+
+
+    def state_as_int(self):
+        if self.state == "Susceptible":
+            return 1
+        elif self.state == "Infected":
+            return 2
+        elif self.state == "Recovered":
+            return 3
+        else:
+            raise ValueError, "Incorrect state"
 
 
     def update(self):
