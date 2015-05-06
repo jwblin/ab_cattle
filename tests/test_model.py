@@ -75,6 +75,12 @@ class Tests(object):
         self.failUnlessRaises( TypeError, 
             self.divide_by_two, self.modelobj._string_test )
 
+    def test_run_session(self):
+        try:
+            self.modelobj.run_session()
+        except:
+            self.fail("Run session failed")
+
 
 
 
