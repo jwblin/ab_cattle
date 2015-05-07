@@ -23,6 +23,18 @@ class Farm(object):
         self.width = 16
 
 
-    def next_location(self, x_current, y_current):
-        """Given the current location in the environment, ."""
+    def move_cattle(self, inCattle):
         pass
+
+
+    def feed_cattle(self, inCattle):
+        pass
+
+
+    def sir_cattle(self, inCattle):
+        pass
+
+
+    def _test_pass_in_cattle(self, inCattle):
+        """Test receiving a Cattle object."""
+        return inCattle.loc_in_environ

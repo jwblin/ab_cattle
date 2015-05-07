@@ -6,12 +6,14 @@
 #==============================================================================
 
 
+#------------------------------------------------------------------------------
 import numpy as N
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
 
+#------------------------------------------------------------------------------
 def plot_farm(aFarm, list_of_cattle=[], show=False):
     """Plot a farm.
 
@@ -75,3 +77,17 @@ def plot_farm(aFarm, list_of_cattle=[], show=False):
     #- Return values:
 
     return fig, ax
+
+
+#------------------------------------------------------------------------------
+def plot_six_farms(*args, **kwds):
+    """Plot six farms."""
+
+    fig, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(1, 6)
+
+
+    fig, ax1 = plot_farm(aFarm, list_of_cattle=[], show=False)
+
+    if kwds['show'] == True:
+        plt.show()
+

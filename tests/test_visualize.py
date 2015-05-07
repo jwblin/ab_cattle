@@ -71,6 +71,7 @@ class Tests(object):
     def test_show_plot_of_farm(self):
         aFarm = farm.Farm()
         list_of_cattle = []
+        list_of_states = ["Susceptible", "Infected", "Recovered"]
 
         for i in range(50):
             xloc = N.random.randint(aFarm.width)
@@ -78,12 +79,10 @@ class Tests(object):
             temp_cattle = cattle.Cattle( x_init=xloc, 
                                          y_init=yloc,
                                          env=aFarm )
-            temp_cattle.state = "Susceptible"
-            temp_cattle.state = "Infected"
-            temp_cattle.state = "Recovered"
+            temp_cattle.state = list_of_states[N.random.randint(3)]
             list_of_cattle.append(temp_cattle)
 
-        visualize.plot_farm(aFarm, list_of_cattle, show=True)
+        #@@@visualize.plot_farm(aFarm, list_of_cattle, show=True)
 
 
 

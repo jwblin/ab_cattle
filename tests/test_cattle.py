@@ -56,6 +56,8 @@ if (__name__ == '__main__') and (__package__ is None):
 #- Import other modules at module level:
 
 import copy
+from ab_cattle.farm import Farm
+from ab_cattle.cattle import Cattle
 
 
 
@@ -63,8 +65,11 @@ import copy
 #------------------------------------ Tests -----------------------------------
 
 class Tests(object):
-    pass
-
+    def test_passing_in_cattle_to_environment_method(self):
+        aFarm = Farm()
+        aCattle = Cattle(x_init=4, y_init=42, env=aFarm)
+        self.failUnless( aCattle._test_pass_in_self()[0] == 42 )
+        self.failUnless( aCattle._test_pass_in_self()[1] == 4 )
 
 
 

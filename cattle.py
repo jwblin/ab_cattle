@@ -38,6 +38,6 @@ class Cattle(object):
             raise ValueError, "Incorrect state"
 
 
-    def update(self):
-        """Runs scheduler."""
-        pass
+    def _test_pass_in_self(self):
+        """Test passing in self as a parameter."""
+        return self.environ._test_pass_in_cattle(self)

@@ -108,8 +108,8 @@ class VisualizeTests( SetUpTest, test_visualize.Tests ):  pass
 # i.e. verbose testing or not verbose testing).
 
 if __name__ == "__main__":
-    run_verbose = False          #- Set this to control verbosity
     run_verbose = True          #- Set this to control verbosity
+    run_verbose = False         #- Set this to control verbosity
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(SetUpTestTests))
     suite.addTest(unittest.makeSuite(CattleTests))

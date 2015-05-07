@@ -69,7 +69,7 @@ class Model(object):
 
     def run_session(self, num_days=100):
         print("Running ...")
-        for it in range( int(N.ceil(num_days/self.dt)) ):
-            for icattle in self.list_cattle:
-                icattle.update()
+        #@@@for it in range( int(N.ceil(num_days/self.dt)) ):
+            #@@@for icattle in self.list_cattle:
+                #@@@icattle.update()
         print("Program successfully ended.")
