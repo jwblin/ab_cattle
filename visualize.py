@@ -37,14 +37,12 @@ def plot_farm(aFarm, list_of_cattle=[], show=False):
         the RGB triples for each data location.
     """
     #- Initialize data for the farm: where cattle state values of 0 are 
-    #  mapped to black, 1 to blue, 2 to red, and 3 to white.  For 
+    #  mapped to black, 1 to blue, 2 to white, and 3 to gray.  For 
     #  information about color codes, see: http://matplotlib.org/api/
-    #  colors_api.html.  For some reason, on my computer, green, gray,
-    #  and magenta are not converting properly to RGB, so I choose
-    #  different coloring:
+    #  colors_api.html:
 
-    data = N.zeros((aFarm.length, aFarm.width, 3), dtype='l')
-    cmap = ['k', 'b', 'r', 'w']
+    data = N.zeros((aFarm.length, aFarm.width, 3), dtype='f')
+    cmap = ['k', 'b', 'w', '0.5']
     convert = matplotlib.colors.ColorConverter()
 
     if len(list_of_cattle) != 0:       #- data for a non-empty farm

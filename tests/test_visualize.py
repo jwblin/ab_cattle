@@ -78,9 +78,9 @@ class Tests(object):
             temp_cattle = cattle.Cattle( x_init=xloc, 
                                          y_init=yloc,
                                          env=aFarm )
-            temp_cattle.state = "Recovered"
-            temp_cattle.state = "Infected"
             temp_cattle.state = "Susceptible"
+            temp_cattle.state = "Infected"
+            temp_cattle.state = "Recovered"
             list_of_cattle.append(temp_cattle)
 
         visualize.plot_farm(aFarm, list_of_cattle, show=True)
