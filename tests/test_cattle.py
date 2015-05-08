@@ -65,11 +65,22 @@ from ab_cattle.cattle import Cattle
 #------------------------------------ Tests -----------------------------------
 
 class Tests(object):
-    def test_passing_in_cattle_to_environment_method(self):
+    def test_passing_in_cattle_to_environment_method1(self):
         aFarm = Farm()
         aCattle = Cattle(x_init=4, y_init=42, env=aFarm)
-        self.failUnless( aCattle._test_pass_in_self()[0] == 42 )
-        self.failUnless( aCattle._test_pass_in_self()[1] == 4 )
+        self.failUnless( aCattle._test_pass_in_self_no_chg()[0] == 42 )
+        self.failUnless( aCattle._test_pass_in_self_no_chg()[1] == 4 )
+
+
+    def test_passing_in_cattle_to_environment_method2(self):
+        aFarm = Farm()
+        aCattle = Cattle(x_init=4, y_init=42, env=aFarm)
+        loc = aCattle._test_pass_in_self_chg().loc_in_environ
+        self.failUnless( loc[0] == 6 )
+        self.failUnless( loc[1] == 11 )
+        self.failUnless( aCattle.loc_in_environ[0] == 6 )
+        self.failUnless( aCattle.loc_in_environ[1] == 11 )
+
 
 
 
