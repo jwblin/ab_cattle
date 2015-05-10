@@ -55,14 +55,14 @@ class Farm(object):
             The choice of random number generators was informed by this:
             http://stackoverflow.com/a/13353563.
         """
-        loc = [inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]]
+        loc = N.array([inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]])
 
         if inCattle.weight < 600.0:
             step = [1, -1]
             N.random.shuffle(step)
-            loc = [loc[0]+step[0], loc[1]]
+            loc = N.array([loc[0]+step[0], loc[1]])
             N.random.shuffle(step)
-            loc = [loc[0],      loc[1]+step[0]]
+            loc = N.array([loc[0],      loc[1]+step[0]])
             if loc[0] < 0:  loc[0] = 0
             if loc[1] < 0:  loc[1] = 0
             if loc[1] >= self.width:   loc[1] = self.width-1
@@ -75,7 +75,7 @@ class Farm(object):
                 inCattle.environ = self.adjacent_road
                 inCattle.environ.list_cattle.append(inCattle)
                 self.list_cattle.remove(inCattle)
-                loc = [0, inCattle.environ.loc_on_road(inCattle)]
+                loc = N.array([0, inCattle.environ.loc_on_road(inCattle)])
                 inCattle.loc_in_environ = loc
                 inCattle.farm_just_left = None
                 return inCattle

@@ -24,9 +24,10 @@ class Cattle(object):
     environ : variety of types
         The environment object where the cattle current is.
 
-    loc_in_environ : tuple
+    loc_in_environ : numpy.ndarray
         The x and y locations in the environment.  The values are ints
         and are given in the coordinates of the given environment type.
+        Two-elements long.
 
     state : string
         Either "Susceptible", "Infected", or "Recovered".
@@ -34,7 +35,7 @@ class Cattle(object):
     def __init__(self, x_init=0, y_init=0, env=None, state="Susceptible",
                  dt=0.25):
         self.environ = env
-        self.loc_in_environ = [y_init, x_init]
+        self.loc_in_environ = N.array([y_init, x_init])
         self.farm_just_left = None
         self.state = state
         self.dt = dt
