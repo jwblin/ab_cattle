@@ -76,15 +76,16 @@ class Tests(object):
         self.failUnlessRaises( TypeError, 
             self.divide_by_two, self.modelobj._string_test )
 
-    def test_run_session_print_out(self):
-        modelobj = Model(init_extra_weight=590.0)
-        modelobj._run_session_print_out(num_days=1)
-
-    def test_run_session(self):
-        try:
-            self.modelobj.run_session(num_days=1)
-        except:
-            self.fail("Run session failed")
+#@@@comment out for now
+#    def test_run_session_print_out(self):
+#        modelobj = Model(init_extra_weight=590.0)
+#        modelobj._run_session_print_out(num_days=1)
+#
+#    def test_run_session(self):
+#        try:
+#            self.modelobj.run_session(num_days=1)
+#        except:
+#            self.fail("Run session failed")
 
 
 

@@ -44,6 +44,7 @@ class Model(object):
         self.numSusceptible = 0
         self.numInfected = 0
         self.numRecovered = 0
+        self.cumulativeInfected = 0
 
         self.INIT_CATTLE_PROBABILITY = 0.02
         self._init_extra_weight = init_extra_weight
@@ -75,6 +76,8 @@ class Model(object):
 
 
     def farm_cattle_init(self):
+        #- Fill up with susceptible cattle:
+
         each_side_farm_index = range(int(self.num_farms)/int(2))
 
         for inum in each_side_farm_index:
@@ -84,7 +87,8 @@ class Model(object):
             for ilength in range(roadEastFarm.length):
                 for iwidth in range(roadEastFarm.width):
                     if N.random.uniform() < self.INIT_CATTLE_PROBABILITY:
-                        aCattle = Cattle(x_init=iwidth, y_init=ilength, 
+                        aCattle = Cattle(x_init=iwidth, y_init=ilength,
+                                         dt=self.dt,
                                          env=roadEastFarm)
                         aCattle.weight += self._init_extra_weight
                         roadEastFarm.list_cattle.append(aCattle)
@@ -99,10 +103,21 @@ class Model(object):
                 for iwidth in range(roadWestFarm.width):
                     if N.random.uniform() < self.INIT_CATTLE_PROBABILITY:
                         aCattle = Cattle(x_init=iwidth, y_init=ilength, 
+                                         dt=self.dt,
                                          env=roadWestFarm)
                         aCattle.weight += self._init_extra_weight
                         roadWestFarm.list_cattle.append(aCattle)
                         self.list_cattle.append(aCattle)
+
+        self.numSusceptible = len(self.list_cattle) - 1
+
+
+        #- Make one cattle infected:
+
+        self.list_cattle[20].state = "Infected"
+        self.list_cattle[20].daysSick = 0
+        self.numInfected += 1
+        self.cumulativeInfected += 1
 
 
     def run_session(self, num_days=300):
@@ -110,7 +125,17 @@ class Model(object):
         for it in range( int(N.ceil(num_days/self.dt)) ):
             self.sim_day = it*self.dt
             for icattle in self.list_cattle:
-                icattle.update()
+                a, b, c, d = icattle.update()
+                self.numSusceptible += a
+                self.numInfected += b
+                self.numRecovered += c
+                self.cumulativeInfected += d
+            print "Day " + str(self.sim_day) + \
+                ": Susceptible = " + str(self.numSusceptible)
+            print "Day " + str(self.sim_day) + \
+                ": Infected = " + str(self.numInfected)
+            print "Day " + str(self.sim_day) + \
+                ": Recovered = " + str(self.numRecovered)
         print("Program successfully ended.")
 
 
@@ -119,7 +144,11 @@ class Model(object):
         for it in range( int(N.ceil(num_days/self.dt)) ):
             self.sim_day = it*self.dt
             for icattle in self.list_cattle:
-                icattle.update()
+                a, b, c, d = icattle.update()
+                self.numSusceptible += a
+                self.numInfected += b
+                self.numRecovered += c
+                self.cumulativeInfected += d
             if it == 0:
                 plt.ion()
                 self.plot_figure, self.plot_axes, self.plot_image = \
@@ -129,6 +158,12 @@ class Model(object):
                     V.plot_ranch(self, 
                     use_objs=(self.plot_figure, self.plot_axes, 
                               self.plot_image))
+            print "Day " + str(self.sim_day) + \
+                ": Susceptible = " + str(self.numSusceptible)
+            print "Day " + str(self.sim_day) + \
+                ": Infected = " + str(self.numInfected)
+            print "Day " + str(self.sim_day) + \
+                ": Recovered = " + str(self.numRecovered)
         print("Program successfully ended.")
 
 

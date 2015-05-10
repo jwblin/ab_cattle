@@ -31,20 +31,24 @@ class Cattle(object):
     state : string
         Either "Susceptible", "Infected", or "Recovered".
     """
-    def __init__(self, x_init=0, y_init=0, env=None, state="Susceptible"):
+    def __init__(self, x_init=0, y_init=0, env=None, state="Susceptible",
+                 dt=0.25):
         self.environ = env
         self.loc_in_environ = [y_init, x_init]
         self.farm_just_left = None
         self.state = state
+        self.dt = dt
         self.inSale1 = False   #- Are you in the salebarn the 1st time?
         self.inSale2 = False   #- Are you in the salebarn the 2nd time?
         self.time1InSale = 0
         self.time2InSale = 0
         self.weight = N.random.uniform()*40.0 + 60.0
         if self.state == "Infected":
-            self.days_sick = 0
+            self.daysSick = 0
         else:
-            self.days_sick = None
+            self.daysSick = None
+        self.INFECTIOUS_PERIOD = 40.0
+        self.INFECTION_PROBABILITY = 0.125
 
 
     def state_as_int(self):
@@ -58,14 +62,78 @@ class Cattle(object):
             raise ValueError, "Incorrect state"
 
 
+    def isNextToInfected(self):
+        north = [self.loc_in_environ[0]+1, self.loc_in_environ[1]]
+        south = [self.loc_in_environ[0]-1, self.loc_in_environ[1]]
+        east = [self.loc_in_environ[0], self.loc_in_environ[1]+1]
+        west = [self.loc_in_environ[0], self.loc_in_environ[1]-1]
+
+        if north[0] < 0:  north[0] = 0
+        if south[0] < 0:  south[0] = 0
+        if east[1] < 0:  east[1] = 0
+        if west[1] < 0:  west[1] = 0
+
+        if north[0] > self.environ.length-1:  north[0] = self.environ.length-1
+        if south[0] > self.environ.length-1:  south[0] = self.environ.length-1
+        if east[1] > self.environ.width-1:  east[1] = self.environ.width-1
+        if west[1] > self.environ.width-1:  west[1] = self.environ.width-1
+
+        for inext in [north, south, east, west]:
+            for iCattle in self.environ.list_cattle:
+                if N.allclose(N.array(inext), N.array(iCattle.loc_in_environ)):
+                    if iCattle.state == "Infected":
+                        return True
+        return False
+
+
     def sir(self):
-        pass
+        dnumSusceptible = 0
+        dnumInfected = 0
+        dnumRecovered = 0
+        dcumulativeInfected = 0
+
+        if (self.state == "Infected") and \
+           (self.daysSick > self.INFECTIOUS_PERIOD):
+            self.state = "Recovered"
+            dnumInfected = -1
+            dnumRecovered = 1
+        elif (self.state == "Infected"):
+            self.daysSick += self.dt
+        elif (self.state == "Susceptible") and self.isNextToInfected():
+            rand = N.random.uniform()
+            if rand < self.INFECTION_PROBABILITY:
+                self.state = "Infected"
+                self.daysSick = 0
+                dnumSusceptible = -1
+                dnumInfected = 1
+                dcumulativeInfected = 1
+
+        return dnumSusceptible, dnumInfected, \
+               dnumRecovered, dcumulativeInfected
 
 
     def update(self):
-        self.sir()
+        dnumSusceptible = 0
+        dnumInfected = 0
+        dnumRecovered = 0
+        dcumulativeInfected = 0
+
+        if isinstance(self.environ, Abattoir):
+            if self.state == "Susceptible":
+                dnumSusceptible = -1
+            elif self.state == "Infected":
+                dnumInfected = -1
+            elif self.state == "Recovered":
+                dnumRecovered = -1
+        else:
+            dnumSusceptible, dnumInfected, \
+                dnumRecovered, dcumulativeInfected = self.sir()
+
         self.environ.move_cattle(self)
         self.environ.feed_cattle(self)
+
+        return dnumSusceptible, dnumInfected, \
+               dnumRecovered, dcumulativeInfected
 
 
     def _test_pass_in_self_chg(self):
