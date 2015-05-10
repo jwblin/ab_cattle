@@ -6,8 +6,14 @@
 #==============================================================================
 
 
+import numpy as N
 from farm import Farm
+from roadeast import RoadEast
+from roadwest import RoadWest
+from salebarn import SaleBarn
+from stocker import Stocker
 from feedlot import Feedlot
+from abattoir import Abattoir
 
 
 class Cattle(object):
@@ -28,7 +34,12 @@ class Cattle(object):
     def __init__(self, x_init=0, y_init=0, env=None, state="Susceptible"):
         self.environ = env
         self.loc_in_environ = [y_init, x_init]
+        self.farm_just_left = None
         self.state = state
+        self.inSale1 = False   #- Are you in the salebarn the 1st time?
+        self.inSale2 = False   #- Are you in the salebarn the 2nd time?
+        self.time1InSale = 0
+        self.time2InSale = 0
         self.weight = N.random.uniform()*40.0 + 60.0
         if self.state == "Infected":
             self.days_sick = 0
@@ -47,18 +58,14 @@ class Cattle(object):
             raise ValueError, "Incorrect state"
 
 
+    def sir(self):
+        pass
+
+
     def update(self):
-        if isinstance(self.environ, Farm):
-            self.sir()
-            if self.weight < 600.0:
-                self.environ.move_cattle(self)
-                self.environ.feed_cattle(self)
-            else:
-                pass #@@@
-
-        elif isinstance(self.environ, Feedlot):
-            pass #@@@
-
+        self.sir()
+        self.environ.move_cattle(self)
+        self.environ.feed_cattle(self)
 
 
     def _test_pass_in_self_chg(self):

@@ -60,6 +60,7 @@ import matplotlib.pyplot as plt
 import numpy as N
 from ab_cattle import cattle
 from ab_cattle import farm
+from ab_cattle import model
 from ab_cattle import visualize
 
 
@@ -83,6 +84,10 @@ class Tests(object):
             list_of_cattle.append(temp_cattle)
 
         #@@@visualize.plot_farm(aFarm, list_of_cattle, show=True)
+
+    def test_run_session_plot_out(self):
+        modelobj = model.Model(init_extra_weight=590.0)
+        modelobj._run_session_plot_out(num_days=100)
 
 
 

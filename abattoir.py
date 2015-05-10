@@ -17,10 +17,41 @@ class Abattoir(object):
     spatial locations.
     """
     def __init__(self):
-        self.length = None
-        self.width = None
+        self.length = 16
+        self.width = 4
+        self.list_cattle = []
 
 
-    def next_location(self, x_current, y_current):
-        """Given the current location in the environment, ."""
+    def move_cattle(self, inCattle):
+        """Move the cattle in the abattoir for visualization.
+
+        As the width index increases, you are moving further away from the
+        salebarn.
+        """
+        #- Move randomly; collisions okay but cannot go west:
+
+        loc = [inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]]
+        step = [1, -1]
+        N.random.shuffle(step)
+        loc = [loc[0]+step[0], loc[1]]
+        loc = [loc[0], loc[1]+1]
+        if loc[0] < 0:  loc[0] = 0
+        if loc[1] < 0:  loc[1] = 0
+        if loc[1] >= self.width:   loc[1] = self.width-1
+        if loc[0] >= self.length:  loc[0] = self.length-1
+
+        inCattle.loc_in_environ = loc
+        return inCattle
+
+
+    def feed_cattle(self, inCattle):
+        return inCattle
+
+
+    def sir_cattle(self, inCattle):
         pass
+
+
+
+
+#===== end file =====
