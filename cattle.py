@@ -64,10 +64,10 @@ class Cattle(object):
 
 
     def isNextToInfected(self):
-        north = [self.loc_in_environ[0]+1, self.loc_in_environ[1]]
-        south = [self.loc_in_environ[0]-1, self.loc_in_environ[1]]
-        east = [self.loc_in_environ[0], self.loc_in_environ[1]+1]
-        west = [self.loc_in_environ[0], self.loc_in_environ[1]-1]
+        north = N.array([self.loc_in_environ[0]+1, self.loc_in_environ[1]])
+        south = N.array([self.loc_in_environ[0]-1, self.loc_in_environ[1]])
+        east = N.array([self.loc_in_environ[0], self.loc_in_environ[1]+1])
+        west = N.array([self.loc_in_environ[0], self.loc_in_environ[1]-1])
 
         if north[0] < 0:  north[0] = 0
         if south[0] < 0:  south[0] = 0

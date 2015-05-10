@@ -40,10 +40,10 @@ class Stocker(object):
         #- Initialize loc.  If reached minimum weight and and next to the 
         #  salebarn then move on to the salebarn.  Else, randomly move:
 
-        loc = [inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]]
+        loc = N.array([inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]])
 
         if inCattle.weight >= 900.0:
-            loc = [loc[0], loc[1]+1]  #- move east
+            loc = N.array([loc[0], loc[1]+1])  #- move east
             if loc[1] < self.width:
                 pass
             else:
@@ -51,19 +51,19 @@ class Stocker(object):
                 inCattle.inSale2 = True
                 inCattle.environ.list_cattle.append(inCattle)
                 self.list_cattle.remove(inCattle)
-                loc = [loc[0], 0]
+                loc = N.array([loc[0], 0])
                 inCattle.loc_in_environ = loc
                 return inCattle
 
         else:                         #- move west past half-way point,
             step = [1, -1]            #  then randomly all directions
             N.random.shuffle(step)
-            loc = [loc[0]+step[0], loc[1]]
+            loc = N.array([loc[0]+step[0], loc[1]])
             if inCattle.loc_in_environ[1] > int(self.width/2):
-                loc = [loc[0], loc[1]-1]
+                loc = N.array([loc[0], loc[1]-1])
             else:
                 N.random.shuffle(step)
-                loc = [loc[0], loc[1]+step[0]]
+                loc = N.array([loc[0], loc[1]+step[0]])
             if loc[0] < 0:  loc[0] = 0
             if loc[1] < 0:  loc[1] = 0
             if loc[1] >= self.width:   loc[1] = self.width-1

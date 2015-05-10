@@ -46,14 +46,14 @@ class RoadWest(object):
 
         Assume that more than one cattle can occupy a single location.
         """
-        loc = [0, inCattle.loc_in_environ[1] + 1]
+        loc = N.array([0, inCattle.loc_in_environ[1] + 1])
 
         if loc[1] >= self.width:            #- end of the road, goto salebarn
             self.list_cattle.remove(inCattle)
             inCattle.environ = self.adjacent_salebarn
             inCattle.inSale1 = True
             inCattle.environ.list_cattle.append(inCattle)
-            loc = [0, 0]
+            loc = N.array([0, 0])
 
         inCattle.loc_in_environ = loc
         return inCattle

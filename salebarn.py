@@ -32,7 +32,7 @@ class SaleBarn(object):
         """
         step = [1, -1]
         N.random.shuffle(step)
-        loc = [inCattle.loc_in_environ[0]+step[0], 0]
+        loc = N.array([inCattle.loc_in_environ[0]+step[0], 0])
         if loc[0] < 0:  loc[0] = 0
         if loc[0] >= self.length:  loc[0] = self.length-1
 
@@ -47,7 +47,7 @@ class SaleBarn(object):
                 inCattle.inSale1 = False
                 inCattle.environ.list_cattle.append(inCattle)
                 self.list_cattle.remove(inCattle)
-                loc = [loc[0], inCattle.environ.width-1]
+                loc = N.array([loc[0], inCattle.environ.width-1])
 
         elif inCattle.inSale2 and not inCattle.inSale1:
             if inCattle.time2InSale == 0:
@@ -60,7 +60,7 @@ class SaleBarn(object):
                 inCattle.inSale2 = False
                 inCattle.environ.list_cattle.append(inCattle)
                 self.list_cattle.remove(inCattle)
-                loc = [loc[0], 0]
+                loc = N.array([loc[0], 0])
 
         else:
             raise ValueError, "Should not be in the salebarn"
