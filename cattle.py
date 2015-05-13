@@ -126,6 +126,9 @@ class Cattle(object):
                 dnumInfected = -1
             elif self.state == "Recovered":
                 dnumRecovered = -1
+            #@@@i think this is causing the negative error.  after get to
+                #abattoir, decrement but then need to remove the cattle from
+                #the abattoir list as well as the list_cattle in the model.
         else:
             dnumSusceptible, dnumInfected, \
                 dnumRecovered, dcumulativeInfected = self.sir()
