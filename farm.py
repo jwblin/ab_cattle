@@ -55,50 +55,13 @@ class Farm(object):
             The choice of random number generators was informed by this:
             http://stackoverflow.com/a/13353563.
         """
-        loc = N.array([inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]])
-
-        if inCattle.weight < 600.0:
-            step = [1, -1]
-            N.random.shuffle(step)
-            loc = N.array([loc[0]+step[0], loc[1]])
-            N.random.shuffle(step)
-            loc = N.array([loc[0],      loc[1]+step[0]])
-            if loc[0] < 0:  loc[0] = 0
-            if loc[1] < 0:  loc[1] = 0
-            if loc[1] >= self.width:   loc[1] = self.width-1
-            if loc[0] >= self.length:  loc[0] = self.length-1
-
-        else:                            #- move south
-            loc[0] = loc[0] + 1
-            if loc[0] >= self.length:    #+ move onto road
-                inCattle.farm_just_left = inCattle.environ
-                inCattle.environ = self.adjacent_road
-                inCattle.environ.list_cattle.append(inCattle)
-                self.list_cattle.remove(inCattle)
-                loc = N.array([0, inCattle.environ.loc_on_road(inCattle)])
-                inCattle.loc_in_environ = loc
-                inCattle.farm_just_left = None
-                return inCattle
-
-
-        #- Check new location does not conflict with another cattle on the 
-        #  farm.  If it does, retain old location:
-
-        for iother in self.list_cattle:
-            if isinstance(inCattle.environ, Farm) and \
-               isinstance(iother.environ, Farm) and \
-               N.allclose(N.array(iother.loc_in_environ), N.array(loc)) and \
-               (id(iother) != id(inCattle)):
-                return inCattle
-
-        inCattle.loc_in_environ = loc
-        return inCattle
+        #TO DO
+        pass
 
 
     def feed_cattle(self, inCattle):
-        if inCattle.weight < 600.0:
-            inCattle.weight += N.random.uniform(0.5, 0.75)
-        return inCattle
+        #TO DO
+        pass
 
 
     def sir_cattle(self, inCattle):
