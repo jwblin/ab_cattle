@@ -130,6 +130,7 @@ class Model(object):
                 self.numInfected += b
                 self.numRecovered += c
                 self.cumulativeInfected += d
+
             print "Day " + str(self.sim_day) + \
                 ": Susceptible = " + str(self.numSusceptible)
             print "Day " + str(self.sim_day) + \
@@ -149,6 +150,7 @@ class Model(object):
                 self.numInfected += b
                 self.numRecovered += c
                 self.cumulativeInfected += d
+
             if it == 0:
                 plt.ion()
                 self.plot_figure, self.plot_axes, self.plot_image = \

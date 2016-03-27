@@ -70,6 +70,7 @@ from ab_cattle import visualize
 
 class Tests(object):
     def test_show_plot_of_farm(self):
+        """Plots a single farm."""
         aFarm = farm.Farm()
         list_of_cattle = []
         list_of_states = ["Susceptible", "Infected", "Recovered"]
@@ -83,11 +84,14 @@ class Tests(object):
             temp_cattle.state = list_of_states[N.random.randint(3)]
             list_of_cattle.append(temp_cattle)
 
-        #@@@visualize.plot_farm(aFarm, list_of_cattle, show=True)
+        #- Commented out since I know the farm works:
+        #visualize.plot_farm(aFarm, list_of_cattle, show=True)
+
 
     def test_run_session_plot_out(self):
+        """This method demonstrates and displays the model running."""
         modelobj = model.Model(init_extra_weight=590.0)
-        modelobj._run_session_plot_out(num_days=100)
+        modelobj._run_session_plot_out(num_days=60)
 
 
 

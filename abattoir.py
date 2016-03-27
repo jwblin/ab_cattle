@@ -13,7 +13,7 @@ class Abattoir(object):
     """Create and manage a abattoir.
 
     As cattle location information is stored in a Cattle object, the
-    purpose of the environmenet objects is to keep track of possible
+    purpose of the environment objects is to keep track of possible
     spatial locations.
     """
     def __init__(self):

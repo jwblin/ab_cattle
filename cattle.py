@@ -30,7 +30,7 @@ class Cattle(object):
         Two-elements long.
 
     state : string
-        Either "Susceptible", "Infected", or "Recovered".
+        Either "Susceptible", "Infected", "Recovered", or "Processed".
     """
     def __init__(self, x_init=0, y_init=0, env=None, state="Susceptible",
                  dt=0.25):
@@ -59,6 +59,8 @@ class Cattle(object):
             return 2
         elif self.state == "Recovered":
             return 3
+        elif self.state == "Processed":
+            return 4
         else:
             raise ValueError, "Incorrect state"
 
@@ -88,6 +90,11 @@ class Cattle(object):
 
 
     def sir(self):
+        """Advance the illness state for the cattle.
+
+        Returns counter increments.  Non-SIR cattle do not alter the 
+        counters.
+        """
         dnumSusceptible = 0
         dnumInfected = 0
         dnumRecovered = 0
@@ -108,6 +115,8 @@ class Cattle(object):
                 dnumSusceptible = -1
                 dnumInfected = 1
                 dcumulativeInfected = 1
+        else:
+            pass
 
         return dnumSusceptible, dnumInfected, \
                dnumRecovered, dcumulativeInfected
@@ -126,9 +135,9 @@ class Cattle(object):
                 dnumInfected = -1
             elif self.state == "Recovered":
                 dnumRecovered = -1
-            #@@@i think this is causing the negative error.  after get to
-                #abattoir, decrement but then need to remove the cattle from
-                #the abattoir list as well as the list_cattle in the model.
+            else:
+                pass
+            self.state = "Processed"  #- Once in abattoir you become processed
         else:
             dnumSusceptible, dnumInfected, \
                 dnumRecovered, dcumulativeInfected = self.sir()

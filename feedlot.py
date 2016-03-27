@@ -70,8 +70,7 @@ class Feedlot(object):
 
     def feed_cattle(self, inCattle):
         if inCattle.weight < 1300.0:
-            #@@@inCattle.weight += N.random.uniform(0.5, 1.0)
-            inCattle.weight += N.random.uniform(0.5, 1.0) + 100.0 #@@@testing
+            inCattle.weight += N.random.uniform(0.5, 1.0)
         return inCattle
 
 

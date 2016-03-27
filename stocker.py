@@ -86,8 +86,7 @@ class Stocker(object):
 
     def feed_cattle(self, inCattle):
         if inCattle.weight < 900.0:
-            #@@@inCattle.weight += N.random.uniform(0.4, 0.6)
-            inCattle.weight += N.random.uniform(0.4, 0.6) + 50.0 #@@@test
+            inCattle.weight += N.random.uniform(0.4, 0.6)
         return inCattle
 
 

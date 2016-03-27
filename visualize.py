@@ -39,12 +39,13 @@ def plot_farm(aFarm, list_of_cattle=[], show=False):
         the RGB triples for each data location.
     """
     #- Initialize data for the farm: where cattle state values of 0 are 
-    #  mapped to black, 1 to blue, 2 to white, and 3 to gray.  For 
-    #  information about color codes, see: http://matplotlib.org/api/
-    #  colors_api.html:
+    #  mapped to black, 1 to blue, 2 to white, 3 to gray, and 4 to darker
+    #  gray.  The colors in the cmap corresponds to environment, Susceptible, 
+    #  Infected, Recovered, Processed.  For information about color codes, 
+    #  see:  http://matplotlib.org/api/colors_api.html:
 
     data = N.zeros((aFarm.length, aFarm.width, 3), dtype='f')
-    cmap = ['k', 'b', 'w', '0.5']
+    cmap = ['k', 'b', 'w', '0.5', '0.1']
     convert = matplotlib.colors.ColorConverter()
 
     if len(list_of_cattle) != 0:       #- data for a non-empty farm
@@ -104,14 +105,15 @@ def plot_ranch(modelobj, use_objs=None):
         users/artists.html).  Note imshow needs to set the aspect keyword to 
         "auto".  See: http://stackoverflow.com/a/13390798.
     """
-    #- Preliminaries:
+    #- Preliminaries:  The colors in each cmap corresponds to environment, 
+    #  Susceptible, Infected, Recovered, Processed.
 
-    cmap_farm = ['0.0', 'b', 'w', '0.5']   #+ Default (element 0) color
-    cmap_road = ['0.8', 'b', 'w', '0.5']   #  for an environment must be
-    cmap_stock = ['0.5', 'b', 'w', '0.5']  #  a gray
-    cmap_sale = ['0.2', 'b', 'w', '0.5']
-    cmap_feed = ['0.4', 'b', 'w', '0.5']
-    cmap_abat = ['0.9', 'b', 'w', '0.5']
+    cmap_farm = ['0.0', 'b', 'w', '0.5', '0.1']   #+ Default (element 0) color
+    cmap_road = ['0.8', 'b', 'w', '0.5', '0.1']   #  for an environment must
+    cmap_stock = ['0.5', 'b', 'w', '0.5', '0.1']  #  be a gray
+    cmap_sale = ['0.2', 'b', 'w', '0.5', '0.1']
+    cmap_feed = ['0.4', 'b', 'w', '0.5', '0.1']
+    cmap_abat = ['0.9', 'b', 'w', '0.5', '0.1']
     convert = matplotlib.colors.ColorConverter()
 
     if use_objs == None:
@@ -376,8 +378,9 @@ def plot_ranch(modelobj, use_objs=None):
         plt.draw()
    
 
-    #- Pause:
+    #- Pause (on my Ubuntu 12.04 Linux box, it runs so slow that there's
+    #  no need to include a pause):
 
-    plt.pause(0.05)
+    #plt.pause(0.05)
 
     return fig, axs, imgs
