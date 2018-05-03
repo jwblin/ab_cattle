@@ -7,13 +7,13 @@
 
 
 import numpy as N
-from farm import Farm
-from roadeast import RoadEast
-from roadwest import RoadWest
-from salebarn import SaleBarn
-from stocker import Stocker
-from feedlot import Feedlot
-from abattoir import Abattoir
+from .farm import Farm
+from .roadeast import RoadEast
+from .roadwest import RoadWest
+from .salebarn import SaleBarn
+from .stocker import Stocker
+from .feedlot import Feedlot
+from .abattoir import Abattoir
 
 
 class Cattle(object):
@@ -62,7 +62,7 @@ class Cattle(object):
         elif self.state == "Processed":
             return 4
         else:
-            raise ValueError, "Incorrect state"
+            raise ValueError("Incorrect state")
 
 
     def isNextToInfected(self):

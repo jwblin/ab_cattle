@@ -7,15 +7,15 @@
 
 
 import numpy as N
-from cattle import Cattle
-from farm import Farm
-from roadeast import RoadEast
-from roadwest import RoadWest
-from salebarn import SaleBarn
-from stocker import Stocker
-from feedlot import Feedlot
-from abattoir import Abattoir
-import visualize as V
+from .cattle import Cattle
+from .farm import Farm
+from .roadeast import RoadEast
+from .roadwest import RoadWest
+from .salebarn import SaleBarn
+from .stocker import Stocker
+from .feedlot import Feedlot
+from .abattoir import Abattoir
+from . import visualize as V
 import matplotlib.pyplot as plt
 
 
@@ -78,7 +78,7 @@ class Model(object):
     def farm_cattle_init(self):
         #- Fill up with susceptible cattle:
 
-        each_side_farm_index = range(int(self.num_farms)/int(2))
+        each_side_farm_index = list(range(int(self.num_farms)//int(2)))
 
         for inum in each_side_farm_index:
             roadEastFarm = Farm(adjacent_road=self.roadeast, farm_index=inum)
@@ -131,12 +131,12 @@ class Model(object):
                 self.numRecovered += c
                 self.cumulativeInfected += d
 
-            print "Day " + str(self.sim_day) + \
-                ": Susceptible = " + str(self.numSusceptible)
-            print "Day " + str(self.sim_day) + \
-                ": Infected = " + str(self.numInfected)
-            print "Day " + str(self.sim_day) + \
-                ": Recovered = " + str(self.numRecovered)
+            print("Day " + str(self.sim_day) + \
+                ": Susceptible = " + str(self.numSusceptible))
+            print("Day " + str(self.sim_day) + \
+                ": Infected = " + str(self.numInfected))
+            print("Day " + str(self.sim_day) + \
+                ": Recovered = " + str(self.numRecovered))
         print("Program successfully ended.")
 
 
@@ -160,12 +160,18 @@ class Model(object):
                     V.plot_ranch(self, 
                     use_objs=(self.plot_figure, self.plot_axes, 
                               self.plot_image))
-            print "Day " + str(self.sim_day) + \
-                ": Susceptible = " + str(self.numSusceptible)
-            print "Day " + str(self.sim_day) + \
-                ": Infected = " + str(self.numInfected)
-            print "Day " + str(self.sim_day) + \
-                ": Recovered = " + str(self.numRecovered)
+
+            #- Pause:  Keep this here, even though my computer is really
+            #  slow, because it seems to enable the image to render even at
+            #  intermediate timesteps:
+            plt.pause(0.01)
+
+            print("Day " + str(self.sim_day) + \
+                ": Susceptible = " + str(self.numSusceptible))
+            print("Day " + str(self.sim_day) + \
+                ": Infected = " + str(self.numInfected))
+            print("Day " + str(self.sim_day) + \
+                ": Recovered = " + str(self.numRecovered))
         print("Program successfully ended.")
 
 
@@ -176,8 +182,8 @@ class Model(object):
             for i in range(len(self.list_cattle)):
                 icattle = self.list_cattle[i]
                 if i == 0:
-                    print it, icattle.loc_in_environ, icattle.weight, \
-                          icattle.environ, len(icattle.environ.list_cattle)
+                    print(it, icattle.loc_in_environ, icattle.weight, \
+                          icattle.environ, len(icattle.environ.list_cattle))
                 icattle.update()
         print("Program successfully ended.")
 

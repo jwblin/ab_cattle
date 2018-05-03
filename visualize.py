@@ -54,7 +54,7 @@ def plot_farm(aFarm, list_of_cattle=[], show=False):
             data[i.loc_in_environ[0], i.loc_in_environ[1], :] = temp[:]
 
             if id(aFarm) != id(i.environ):
-                raise ValueError, "Cattle not all on same farm"
+                raise ValueError("Cattle not all on same farm")
     else:                              #- data for empty farm
         pass
 
@@ -234,7 +234,7 @@ def plot_ranch(modelobj, use_objs=None):
             else:
                 data[i.loc_in_environ[0], i.loc_in_environ[1], :] = temp[:]
             if id(iFarm) != id(i.environ):
-                raise ValueError, "Cattle not all on same farm"
+                raise ValueError("Cattle not all on same farm")
 
         if use_objs == None:
             ax = axs[ifcount]
@@ -378,9 +378,9 @@ def plot_ranch(modelobj, use_objs=None):
         plt.draw()
    
 
-    #- Pause (on my Ubuntu 12.04 Linux box, it runs so slow that there's
-    #  no need to include a pause):
-
-    #plt.pause(0.05)
+    #- Return values:
 
     return fig, axs, imgs
+
+
+#===== end file =====

@@ -63,7 +63,7 @@ class SaleBarn(object):
                 loc = N.array([loc[0], 0])
 
         else:
-            raise ValueError, "Should not be in the salebarn"
+            raise ValueError("Should not be in the salebarn")
 
         inCattle.loc_in_environ = loc
         return inCattle

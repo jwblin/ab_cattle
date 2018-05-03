@@ -7,8 +7,8 @@
 
 
 import numpy as N
-from roadeast import RoadEast
-from roadwest import RoadWest
+from .roadeast import RoadEast
+from .roadwest import RoadWest
 
 
 class Farm(object):

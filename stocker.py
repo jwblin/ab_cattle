@@ -7,7 +7,7 @@
 
 
 import numpy as N
-from roadeast import RoadEast
+from .roadeast import RoadEast
 
 
 class Stocker(object):
