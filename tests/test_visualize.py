@@ -92,7 +92,7 @@ class Tests(object):
     def test_run_session_plot_out(self):
         """This method demonstrates and displays the model running."""
         modelobj = model.Model(init_extra_weight=590.0)
-        modelobj._run_session_plot_out(num_days=60)
+        modelobj._run_session_plot_out(num_days=2)
 
 
 
