@@ -69,20 +69,21 @@ from ab_cattle import visualize
 #------------------------------------ Tests -----------------------------------
 
 class Tests(object):
-    def test_show_plot_of_farm(self):
-        """Plots a single farm."""
-        aFarm = farm.Farm()
-        list_of_cattle = []
-        list_of_states = ["Susceptible", "Infected", "Recovered"]
-
-        for i in range(50):
-            xloc = N.random.randint(aFarm.width)
-            yloc = N.random.randint(aFarm.length)
-            temp_cattle = cattle.Cattle( x_init=xloc, 
-                                         y_init=yloc,
-                                         env=aFarm )
-            temp_cattle.state = list_of_states[N.random.randint(3)]
-            list_of_cattle.append(temp_cattle)
+#commented out for now since I just want to do a single visualization
+#    def test_show_plot_of_farm(self):
+#        """Plots a single farm."""
+#        aFarm = farm.Farm()
+#        list_of_cattle = []
+#        list_of_states = ["Susceptible", "Infected", "Recovered"]
+#
+#        for i in range(50):
+#            xloc = N.random.randint(aFarm.width)
+#            yloc = N.random.randint(aFarm.length)
+#            temp_cattle = cattle.Cattle( x_init=xloc, 
+#                                         y_init=yloc,
+#                                         env=aFarm )
+#            temp_cattle.state = list_of_states[N.random.randint(3)]
+#            list_of_cattle.append(temp_cattle)
 
         #- Commented out since I know the farm works:
         #visualize.plot_farm(aFarm, list_of_cattle, show=True)
@@ -92,6 +93,26 @@ class Tests(object):
         """This method demonstrates and displays the model running."""
         modelobj = model.Model(init_extra_weight=590.0)
         modelobj._run_session_plot_out(num_days=60)
+
+
+
+
+#------------------------------- Main Program ---------------------------------
+#
+# Set variable run_verbose to True or False, depending on what I want to do 
+# i.e. verbose testing or not verbose testing).
+
+if __name__ == "__main__":
+    import unittest
+    class TheseTests( unittest.TestCase, Tests ):  pass
+    run_verbose = True          #- Set this to control verbosity
+    run_verbose = False         #- Set this to control verbosity
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TheseTests))
+    if run_verbose:
+        unittest.TextTestRunner(verbosity=2).run(suite)
+    else:
+        unittest.TextTestRunner(verbosity=1).run(suite)
 
 
 

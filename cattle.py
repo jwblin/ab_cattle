@@ -7,13 +7,13 @@
 
 
 import numpy as N
-from farm import Farm
-from roadeast import RoadEast
-from roadwest import RoadWest
-from salebarn import SaleBarn
-from stocker import Stocker
-from feedlot import Feedlot
-from abattoir import Abattoir
+from .farm import Farm
+from .roadeast import RoadEast
+from .roadwest import RoadWest
+from .salebarn import SaleBarn
+from .stocker import Stocker
+from .feedlot import Feedlot
+from .abattoir import Abattoir
 
 
 class Cattle(object):
@@ -62,12 +62,31 @@ class Cattle(object):
         elif self.state == "Processed":
             return 4
         else:
-            raise ValueError, "Incorrect state"
+            raise ValueError("Incorrect state")
 
 
     def isNextToInfected(self):
-        #TO DO
-        pass
+        north = N.array([self.loc_in_environ[0]+1, self.loc_in_environ[1]])
+        south = N.array([self.loc_in_environ[0]-1, self.loc_in_environ[1]])
+        east = N.array([self.loc_in_environ[0], self.loc_in_environ[1]+1])
+        west = N.array([self.loc_in_environ[0], self.loc_in_environ[1]-1])
+
+        if north[0] < 0:  north[0] = 0
+        if south[0] < 0:  south[0] = 0
+        if east[1] < 0:  east[1] = 0
+        if west[1] < 0:  west[1] = 0
+
+        if north[0] > self.environ.length-1:  north[0] = self.environ.length-1
+        if south[0] > self.environ.length-1:  south[0] = self.environ.length-1
+        if east[1] > self.environ.width-1:  east[1] = self.environ.width-1
+        if west[1] > self.environ.width-1:  west[1] = self.environ.width-1
+
+        for inext in [north, south, east, west]:
+            for iCattle in self.environ.list_cattle:
+                if N.allclose(N.array(inext), N.array(iCattle.loc_in_environ)):
+                    if iCattle.state == "Infected":
+                        return True
+        return False
 
 
     def sir(self):
@@ -76,13 +95,58 @@ class Cattle(object):
         Returns counter increments.  Non-SIR cattle do not alter the 
         counters.
         """
-        #TO DO
-        pass
+        dnumSusceptible = 0
+        dnumInfected = 0
+        dnumRecovered = 0
+        dcumulativeInfected = 0
+
+        if (self.state == "Infected") and \
+           (self.daysSick > self.INFECTIOUS_PERIOD):
+            self.state = "Recovered"
+            dnumInfected = -1
+            dnumRecovered = 1
+        elif (self.state == "Infected"):
+            self.daysSick += self.dt
+        elif (self.state == "Susceptible") and self.isNextToInfected():
+            rand = N.random.uniform()
+            if rand < self.INFECTION_PROBABILITY:
+                self.state = "Infected"
+                self.daysSick = 0
+                dnumSusceptible = -1
+                dnumInfected = 1
+                dcumulativeInfected = 1
+        else:
+            pass
+
+        return dnumSusceptible, dnumInfected, \
+               dnumRecovered, dcumulativeInfected
 
 
     def update(self):
-        #TO DO
-        pass
+        dnumSusceptible = 0
+        dnumInfected = 0
+        dnumRecovered = 0
+        dcumulativeInfected = 0
+
+        if isinstance(self.environ, Abattoir):
+            if self.state == "Susceptible":
+                dnumSusceptible = -1
+            elif self.state == "Infected":
+                dnumInfected = -1
+            elif self.state == "Recovered":
+                dnumRecovered = -1
+            else:
+                pass
+            self.state = "Processed"  #- Once in abattoir you become processed
+        else:
+            dnumSusceptible, dnumInfected, \
+                dnumRecovered, dcumulativeInfected = self.sir()
+
+        self.environ.move_cattle(self)
+        self.environ.feed_cattle(self)
+
+        return dnumSusceptible, dnumInfected, \
+               dnumRecovered, dcumulativeInfected
 
 
     def _test_pass_in_self_chg(self):
