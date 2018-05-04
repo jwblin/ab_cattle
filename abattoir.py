@@ -30,21 +30,13 @@ class Abattoir(object):
         """
         #- Move randomly; collisions okay but cannot go west:
 
-        loc = N.array([inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]])
-        step = [1, -1]
-        N.random.shuffle(step)
-        loc = N.array([loc[0]+step[0], loc[1]])
-        loc = N.array([loc[0], loc[1]+1])
-        if loc[0] < 0:  loc[0] = 0
-        if loc[1] < 0:  loc[1] = 0
-        if loc[1] >= self.width:   loc[1] = self.width-1
-        if loc[0] >= self.length:  loc[0] = self.length-1
+        pass   # Put code in lieu of this line
 
-        inCattle.loc_in_environ = loc
         return inCattle
 
 
     def feed_cattle(self, inCattle):
+        pass   # Put code (if needed) in lieu of this line
         return inCattle
 
 

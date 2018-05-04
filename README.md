@@ -1,7 +1,13 @@
 # ab_cattle
 Agent-based model cattle and disease model from Shiflet &amp; Shiflet (2014).
 
-Solution to the model using an object-oriented framework.
+This branch is the full solution to the model using an object-oriented
+framework but with the bodies of the following methods mostly removed:
+
+* abattoir.py:  feed_cattle, move_cattle
+* cattle.py:  isNextToInfected, sir, update
+* farm.py:  feed_cattle, move_cattle
+* feedlot.py:  feed_cattle, move_cattle
 
 The model has been tested on Python 2.7 and 3.4.  It should work on
 Python 3.x.
