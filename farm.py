@@ -44,16 +44,20 @@ class Farm(object):
     def move_cattle(self, inCattle):
         """Move the cattle in the farm or off the farm.
 
-        When moving the cattle off the farm, you enter the road at the location
-        directly across from the width location of the farm you were on.
+        When moving the cattle off the farm, you enter the road at the
+        location directly across from the width location of the farm
+        you were on.
 
         Notes
         -----
-            This method incorporates part of inFarm and farm2Sale from Shiflet 
-            and Shiflet (2014).
+            This method incorporates part of inFarm and farm2Sale from
+            Shiflet and Shiflet (2014).
 
             The choice of random number generators was informed by this:
             http://stackoverflow.com/a/13353563.
+
+            Changes to inCattle propagate out of the method because
+            inCattle is an object.
         """
         loc = N.array([inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]])
 
@@ -78,7 +82,7 @@ class Farm(object):
                 loc = N.array([0, inCattle.environ.loc_on_road(inCattle)])
                 inCattle.loc_in_environ = loc
                 inCattle.farm_just_left = None
-                return inCattle
+                return
 
 
         #- Check new location does not conflict with another cattle on the 
@@ -89,20 +93,20 @@ class Farm(object):
                isinstance(iother.environ, Farm) and \
                N.allclose(N.array(iother.loc_in_environ), N.array(loc)) and \
                (id(iother) != id(inCattle)):
-                return inCattle
+                return
 
         inCattle.loc_in_environ = loc
-        return inCattle
+        return
 
 
     def feed_cattle(self, inCattle):
+        """Feed cattle.
+
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
+        """
         if inCattle.weight < 600.0:
             inCattle.weight += N.random.uniform(0.5, 0.75)
-        return inCattle
-
-
-    def sir_cattle(self, inCattle):
-        pass
 
 
     def _test_pass_in_cattle_chg(self, inCattle):

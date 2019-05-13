@@ -45,6 +45,9 @@ class RoadEast(object):
         """Move cattle down the road or into the salebarn.
 
         Assume that more than one cattle can occupy a single location.
+
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
         """
         loc = N.array([0, inCattle.loc_in_environ[1] + 1])
 
@@ -56,10 +59,15 @@ class RoadEast(object):
             loc = N.array([0, 0])
 
         inCattle.loc_in_environ = loc
-        return inCattle
 
 
     def feed_cattle(self, inCattle):
         """Cattle eat no food and gain no weight on the road.
+
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
         """
-        return inCattle
+        pass
+
+
+#===== end file =====

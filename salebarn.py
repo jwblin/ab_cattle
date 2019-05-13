@@ -29,6 +29,9 @@ class SaleBarn(object):
 
         Assume that more than one cattle can occupy a single location.  The
         algorithm we use is slightly different from Shiflet & Shiflet (2014)'s.
+
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
         """
         step = [1, -1]
         N.random.shuffle(step)
@@ -66,13 +69,15 @@ class SaleBarn(object):
             raise ValueError("Should not be in the salebarn")
 
         inCattle.loc_in_environ = loc
-        return inCattle
 
 
     def feed_cattle(self, inCattle):
-        return inCattle
+        """Feed cattle.
 
-
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
+        """
+        pass
 
 
 #===== end file =====

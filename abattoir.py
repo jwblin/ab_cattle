@@ -27,6 +27,9 @@ class Abattoir(object):
 
         As the width index increases, you are moving further away from the
         salebarn.
+
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
         """
         #- Move randomly; collisions okay but cannot go west:
 
@@ -41,14 +44,9 @@ class Abattoir(object):
         if loc[0] >= self.length:  loc[0] = self.length-1
 
         inCattle.loc_in_environ = loc
-        return inCattle
 
 
     def feed_cattle(self, inCattle):
-        return inCattle
-
-
-    def sir_cattle(self, inCattle):
         pass
 
 

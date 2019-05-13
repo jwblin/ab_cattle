@@ -31,6 +31,9 @@ class Feedlot(object):
 
         As the width index increases, you are moving further away from the
         salebarn.
+
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
         """
         loc = N.array([inCattle.loc_in_environ[0], inCattle.loc_in_environ[1]])
 
@@ -42,7 +45,7 @@ class Feedlot(object):
                 inCattle.environ.list_cattle.append(inCattle)
                 self.list_cattle.remove(inCattle)
                 inCattle.loc_in_environ = loc
-                return inCattle
+                return
 
         else:                           #- random walk with no west movement
             step = [1, -1]
@@ -62,22 +65,22 @@ class Feedlot(object):
                isinstance(iother.environ, Feedlot) and \
                N.allclose(N.array(iother.loc_in_environ), N.array(loc)) and \
                (id(iother) != id(inCattle)):
-                return inCattle
+                return
 
         inCattle.loc_in_environ = loc
-        return inCattle
+        return
 
 
     def feed_cattle(self, inCattle):
+        """Feed cattle.
+        
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
+        """
         if inCattle.weight < 1300.0:
             inCattle.weight += N.random.uniform(0.5, 1.0)
-        return inCattle
-
-
-    def sir_cattle(self, inCattle):
-        pass
 
 
 
 
-#===== end file=====
+#===== end file =====

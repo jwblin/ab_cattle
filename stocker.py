@@ -36,6 +36,9 @@ class Stocker(object):
         the cattle moves "randomly" west until they reach the midway point of
         the stocker, then they walk randomly.  This prevents bunching up near
         the boundary with the salebarn.
+
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
         """
         #- Initialize loc.  If reached minimum weight and and next to the 
         #  salebarn then move on to the salebarn.  Else, randomly move:
@@ -53,7 +56,7 @@ class Stocker(object):
                 self.list_cattle.remove(inCattle)
                 loc = N.array([loc[0], 0])
                 inCattle.loc_in_environ = loc
-                return inCattle
+                return
 
         else:                         #- move west past half-way point,
             step = [1, -1]            #  then randomly all directions
@@ -78,22 +81,20 @@ class Stocker(object):
                isinstance(iother.environ, Stocker) and \
                N.allclose(N.array(iother.loc_in_environ), N.array(loc)) and \
                (id(iother) != id(inCattle)):
-                return inCattle
+                return
 
         inCattle.loc_in_environ = loc
-        return inCattle
+        return
 
 
     def feed_cattle(self, inCattle):
+        """Feed cattle.
+
+        Changes to inCattle propagate out of the method because inCattle
+        is an object.
+        """
         if inCattle.weight < 900.0:
             inCattle.weight += N.random.uniform(0.4, 0.6)
-        return inCattle
-
-
-    def sir_cattle(self, inCattle):
-        pass
-
-
 
 
 #===== end file =====
